@@ -6,10 +6,14 @@ const WallDrawer = () => {
   const [wall, setWall] = useState('');
   const [numPartitions, setNumPartitions] = useState('');
 
+
   const drawWall = () => {
     const wallThickness = 20; // Duvar kalınlığı
     const patternWidth = 20; // Desen genişliği
     const patternHeight = 20; // Desen yüksekliği
+
+    const partitionThickness = 5; // Ara duvar kalınlığı
+  const partitionColor = 'lightgray'; // Ara duvar rengi
 
     const numHorizontalPatterns = Math.ceil(roomWidth / patternWidth);
     const numVerticalPatterns = Math.ceil(roomHeight / patternHeight);
@@ -42,9 +46,9 @@ const WallDrawer = () => {
           key={`partition-${i}`}
           x={partitionX - wallThickness / 2}
           y={wallThickness}
-          width={wallThickness}
+          width={partitionThickness}
           height={roomHeight - wallThickness}
-          fill="gray"
+          fill={partitionColor} // Farklı renkler için burada değişiklik yapıldı
         />
       );
     }
