@@ -32,10 +32,10 @@ const WallDrawer = () => {
       }
     }
 
-    const partitionWidth = (roomWidth - wallThickness) / (numPartitions + 1);
+    const partitionWidth = (roomWidth - wallThickness) / (numPartitions);
 
     const partitions = [];
-    for (let i = 1; i <= numPartitions; i++) {
+    for (let i = 1; i < numPartitions; i++) {
       const partitionX = wallThickness / 2 + i * partitionWidth;
       partitions.push(
         <rect
