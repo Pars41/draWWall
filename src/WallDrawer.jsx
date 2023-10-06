@@ -8,7 +8,7 @@ const WallDrawer = () => {
   const [roomWidth, setRoomWidth] = useState("");
   const [roomHeight, setRoomHeight] = useState("");
   const [wall, setWall] = useState("");
-  const [numPartitions, setNumPartitions] = useState("");
+  const [numStalls, setNumStalls] = useState("");
   const [stallDepth, setStallDepth] = useState("");
 
   const drawWall = () => {
@@ -17,7 +17,7 @@ const WallDrawer = () => {
     const patternHeight = 20; // Desen yüksekliği
 
     const panel = 5; // Ara duvar kalınlığı
-    const partitionColor = "#DC773F"; // Ara duvar rengi
+    const panelColor = "#DC773F"; // Ara duvar rengi
 
     const numHorizontalPatterns = Math.ceil(roomWidth / patternWidth);
     const numVerticalPatterns = Math.ceil(roomHeight / patternHeight);
@@ -41,13 +41,13 @@ const WallDrawer = () => {
     }
 
     const partitionWidth =
-      (roomWidth - wallThickness * 2 - (numPartitions - 1) * panel) /
-      numPartitions;
+      (roomWidth - wallThickness * 2 - (numStalls - 1) * panel) /
+      numStalls;
 
-    const kolzetWidth = partitionWidth/2; // Genişlik ve yükseklik değerlerini uygun şekilde güncelleyin
+    const closetWidth = partitionWidth/2; // Genişlik ve yükseklik değerlerini uygun şekilde güncelleyin
 
     const partitions = [];
-    for (let i = 1; i < numPartitions; i++) {
+    for (let i = 1; i < numStalls; i++) {
       const partitionX = 2 * wallThickness + i * partitionWidth + (i - 1) * panel;
       const partitionY = wallThickness * 1.5;
 
@@ -58,7 +58,7 @@ const WallDrawer = () => {
           y={partitionY}
           width={panel}
           height={stallDepth}
-          fill={partitionColor} // Farklı renkler için burada değişiklik yapıldı
+          fill={panelColor} // Farklı renkler için burada değişiklik yapıldı
         />
       );
     }
@@ -89,20 +89,21 @@ const WallDrawer = () => {
         {partitions}
 
         {/* Adding the kolzet image at partition centers */}
-        {partitions.map((partition, index) => {
-          const partitionX = 2 * wallThickness + index * partitionWidth + (index - 1) * panel;
-          const partitionY = wallThickness * 1.5;
+        {Array.from({ length: numStalls }).map((_, index) => {
+      const partitionX = 2 * wallThickness + index * partitionWidth + (index - 1) * panel;
+      const partitionY = wallThickness * 1.5;
 
-          return (
-            <image
-              key={`kolzet-${index}`}
-              href={ToiletImg}
-              x={partitionX+kolzetWidth/2 - panel/2}
-              y={partitionY}
-              width={kolzetWidth}
-            />
-          );
-        })}
+      return (
+        <image
+          key={`kolzet-${index}`}
+          href={ToiletImg}
+          x={partitionX + closetWidth / 2 - panel }
+          y={partitionY}
+          width={closetWidth}
+        />
+      );
+    })}
+        
       </g>
     );
 
@@ -138,14 +139,14 @@ const WallDrawer = () => {
 
     setWall(updatedWall);
   };
-
+  console.log(numStalls)
   return (
     <div style={{ textAlign: "center" }}>
       <div className="navbar">
         <TextField
           id="outlined-basic"
           variant="outlined"
-          label="Oda genişliği"
+          label="Room width (cm)"
           type="number"
           value={roomWidth}
           onChange={(e) => setRoomWidth(parseInt(e.target.value))}
@@ -154,17 +155,17 @@ const WallDrawer = () => {
           type="number"
           id="outlined-basic"
           variant="outlined"
-          label="Oda yüksekliği"
+          label="Room depth (cm)"
           value={roomHeight}
           onChange={(e) => setRoomHeight(parseInt(e.target.value))}
         />
         <TextField
-          label="Kabin adedi"
+          label="Number of stalls"
           id="outlined-basic"
           variant="outlined"
           type="number"
-          value={numPartitions}
-          onChange={(e) => setNumPartitions(parseInt(e.target.value))}
+          value={numStalls}
+          onChange={(e) => setNumStalls(parseInt(e.target.value))}
         />
 
         <TextField
@@ -172,11 +173,11 @@ const WallDrawer = () => {
           value={stallDepth}
           onChange={(e) => setStallDepth(parseInt(e.target.value))}
           id="outlined-basic"
-          label="Kabin Derinliği"
+          label="Stall Depth (cm)"
           variant="outlined"
         />
         <Button onClick={drawWall} variant="contained" color="success">
-          Duvarı Çiz <PolylineOutlinedIcon />
+          Draw <PolylineOutlinedIcon />
         </Button>
       </div>
 
