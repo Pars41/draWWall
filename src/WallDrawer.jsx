@@ -39,16 +39,20 @@ const WallDrawer = () => {
       }
     }
 
-    const partitionWidth = (roomWidth - wallThickness) / numPartitions;
+    const partitionWidth =
+      (roomWidth - wallThickness * 2 - (numPartitions - 1) * panel) /
+      numPartitions;
 
     const partitions = [];
     for (let i = 1; i < numPartitions; i++) {
-      const partitionX = wallThickness / 2 + i * partitionWidth;
+      const partitionX = 2*wallThickness + i * partitionWidth + (i-1)*panel;
+      const partitionY = wallThickness * 1.5;
+
       partitions.push(
         <rect
           key={`partition-${i}`}
           x={partitionX - wallThickness / 2}
-          y={wallThickness}
+          y={partitionY}
           width={panel}
           height={stallDepth}
           fill={partitionColor} // Farklı renkler için burada değişiklik yapıldı
