@@ -125,11 +125,12 @@ const WallDrawer = () => {
         
       </g>
     );
-
+    const extendAmount = 30;
     const updatedWall = (
       <svg
-        width={roomWidth + wallThickness}
-        height={roomHeight + wallThickness}
+         width={roomWidth + wallThickness + 2 * extendAmount}  // Sağ ve sol tarafa extendAmount ekleniyor
+    height={roomHeight + wallThickness + 2 * extendAmount}  // Üst ve alt tarafa extendAmount ekleniyor
+    viewBox={`-${extendAmount} -${extendAmount} ${roomWidth + wallThickness + 2 * extendAmount} ${roomHeight + wallThickness + 2 * extendAmount}`}
       >
         <defs>
           <pattern
