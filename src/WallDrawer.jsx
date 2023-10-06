@@ -4,6 +4,7 @@ const WallDrawer = () => {
   const [roomWidth, setRoomWidth] = useState('');
   const [roomHeight, setRoomHeight] = useState('');
   const [wall, setWall] = useState('');
+  const [numPartitions, setNumPartitions] = useState('');
 
   const drawWall = () => {
     const wallThickness = 20; // Duvar kalınlığı
@@ -31,10 +32,25 @@ const WallDrawer = () => {
       }
     }
 
-    // U şeklindeki çizim
-    const UShape = (
+    const partitionWidth = (roomWidth - wallThickness) / (numPartitions + 1);
+
+    const partitions = [];
+    for (let i = 1; i <= numPartitions; i++) {
+      const partitionX = wallThickness / 2 + i * partitionWidth;
+      partitions.push(
+        <rect
+          key={`partition-${i}`}
+          x={partitionX - wallThickness / 2}
+          y={wallThickness}
+          width={wallThickness}
+          height={roomHeight - wallThickness}
+          fill="gray"
+        />
+      );
+    }
+
+    const UShapeWithPartitions = (
       <g fill="gray">
-        {/* Üst yatay çizgi */}
         <rect
           x={wallThickness / 2}
           y={wallThickness / 2}
@@ -42,7 +58,6 @@ const WallDrawer = () => {
           height={wallThickness}
           fill="gray"
         />
-        {/* Sol dikey çizgi */}
         <rect
           x={wallThickness / 2}
           y={wallThickness / 2}
@@ -50,7 +65,6 @@ const WallDrawer = () => {
           height={roomHeight - wallThickness}
           fill="gray"
         />
-        {/* Sağ dikey çizgi */}
         <rect
           x={roomWidth - wallThickness / 2}
           y={wallThickness / 2}
@@ -58,13 +72,12 @@ const WallDrawer = () => {
           height={roomHeight - wallThickness}
           fill="gray"
         />
+        {partitions}
       </g>
     );
 
-    // Duvarı oluştur
-    const wall = (
+    const updatedWall = (
       <svg width={roomWidth + wallThickness} height={roomHeight + wallThickness}>
-        {/* Taralı desen */}
         <defs>
           <pattern
             id="pattern"
@@ -76,7 +89,6 @@ const WallDrawer = () => {
           </pattern>
         </defs>
 
-        {/* Duvar */}
         <rect
           x={wallThickness / 2}
           y={wallThickness / 2}
@@ -85,14 +97,13 @@ const WallDrawer = () => {
           fill="white"
         />
 
-        {/* U şeklindeki çizimi içini desenle doldur */}
         <g transform={`translate(0, ${wallThickness})`} fill="url(#pattern)">
-          {UShape}
+          {UShapeWithPartitions}
         </g>
       </svg>
     );
 
-    setWall(wall);
+    setWall(updatedWall);
   };
 
   return (
@@ -111,6 +122,14 @@ const WallDrawer = () => {
           type="number"
           value={roomHeight}
           onChange={(e) => setRoomHeight(parseInt(e.target.value))}
+        />
+      </label>
+      <label>
+        Duvarı kaç parçaya böleceksiniz?:
+        <input
+          type="number"
+          value={numPartitions}
+          onChange={(e) => setNumPartitions(parseInt(e.target.value))}
         />
       </label>
       <button onClick={drawWall}>Duvarı Çiz</button>
