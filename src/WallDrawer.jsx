@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import PolylineOutlinedIcon from "@mui/icons-material/PolylineOutlined";
+import ToiletImg from "./assets/ToiletWall.gif"; // Import kolzet image
 
 const WallDrawer = () => {
   const [roomWidth, setRoomWidth] = useState("");
@@ -43,9 +44,11 @@ const WallDrawer = () => {
       (roomWidth - wallThickness * 2 - (numPartitions - 1) * panel) /
       numPartitions;
 
+    const kolzetWidth = partitionWidth/2; // Genişlik ve yükseklik değerlerini uygun şekilde güncelleyin
+
     const partitions = [];
     for (let i = 1; i < numPartitions; i++) {
-      const partitionX = 2*wallThickness + i * partitionWidth + (i-1)*panel;
+      const partitionX = 2 * wallThickness + i * partitionWidth + (i - 1) * panel;
       const partitionY = wallThickness * 1.5;
 
       partitions.push(
@@ -84,6 +87,22 @@ const WallDrawer = () => {
           fill="#ACACAC"
         />
         {partitions}
+
+        {/* Adding the kolzet image at partition centers */}
+        {partitions.map((partition, index) => {
+          const partitionX = 2 * wallThickness + index * partitionWidth + (index - 1) * panel;
+          const partitionY = wallThickness * 1.5;
+
+          return (
+            <image
+              key={`kolzet-${index}`}
+              href={ToiletImg}
+              x={partitionX+kolzetWidth/2 - panel/2}
+              y={partitionY}
+              width={kolzetWidth}
+            />
+          );
+        })}
       </g>
     );
 
