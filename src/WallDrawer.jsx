@@ -44,7 +44,7 @@ const WallDrawer = () => {
       (roomWidth - wallThickness * 2 - (numStalls - 1) * panel) /
       numStalls;
 
-    const closetWidth = partitionWidth/2; // Genişlik ve yükseklik değerlerini uygun şekilde güncelleyin
+    const closetWidth = partitionWidth/2; 
 
     const partitions = [];
     for (let i = 1; i < numStalls; i++) {
