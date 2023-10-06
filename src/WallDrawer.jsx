@@ -5,6 +5,7 @@ const WallDrawer = () => {
   const [roomHeight, setRoomHeight] = useState('');
   const [wall, setWall] = useState('');
   const [numPartitions, setNumPartitions] = useState('');
+  const [partitionDepth, setPartitionDepth] = useState('')
 
 
   const drawWall = () => {
@@ -47,7 +48,7 @@ const WallDrawer = () => {
           x={partitionX - wallThickness / 2}
           y={wallThickness}
           width={partitionThickness}
-          height={roomHeight - wallThickness}
+          height={partitionDepth}
           fill={partitionColor} // Farklı renkler için burada değişiklik yapıldı
         />
       );
@@ -129,11 +130,19 @@ const WallDrawer = () => {
         />
       </label>
       <label>
-        Duvarı kaç parçaya böleceksiniz?:
+        Kabin adedi:
         <input
           type="number"
           value={numPartitions}
           onChange={(e) => setNumPartitions(parseInt(e.target.value))}
+        />
+      </label>
+      <label>
+        Kabin Derinliği:
+        <input
+          type="number"
+          value={partitionDepth}
+          onChange={(e) => setPartitionDepth(parseInt(e.target.value))}
         />
       </label>
       <button onClick={drawWall}>Duvarı Çiz</button>
