@@ -1,22 +1,22 @@
 import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import PolylineOutlinedIcon from '@mui/icons-material/PolylineOutlined';
+import PolylineOutlinedIcon from "@mui/icons-material/PolylineOutlined";
 
 const WallDrawer = () => {
   const [roomWidth, setRoomWidth] = useState("");
   const [roomHeight, setRoomHeight] = useState("");
   const [wall, setWall] = useState("");
   const [numPartitions, setNumPartitions] = useState("");
-  const [partitionDepth, setPartitionDepth] = useState("");
+  const [stallDepth, setStallDepth] = useState("");
 
   const drawWall = () => {
     const wallThickness = 20; // Duvar kalınlığı
     const patternWidth = 20; // Desen genişliği
     const patternHeight = 20; // Desen yüksekliği
 
-    const partitionThickness = 5; // Ara duvar kalınlığı
-    const partitionColor = "lightgray"; // Ara duvar rengi
+    const panel = 5; // Ara duvar kalınlığı
+    const partitionColor = "#DC773F"; // Ara duvar rengi
 
     const numHorizontalPatterns = Math.ceil(roomWidth / patternWidth);
     const numVerticalPatterns = Math.ceil(roomHeight / patternHeight);
@@ -49,35 +49,35 @@ const WallDrawer = () => {
           key={`partition-${i}`}
           x={partitionX - wallThickness / 2}
           y={wallThickness}
-          width={partitionThickness}
-          height={partitionDepth}
+          width={panel}
+          height={stallDepth}
           fill={partitionColor} // Farklı renkler için burada değişiklik yapıldı
         />
       );
     }
 
     const UShapeWithPartitions = (
-      <g fill="gray">
+      <g fill="#ACACAC">
         <rect
           x={wallThickness / 2}
           y={wallThickness / 2}
           width={roomWidth - wallThickness}
           height={wallThickness}
-          fill="gray"
+          fill="#ACACAC"
         />
         <rect
           x={wallThickness / 2}
           y={wallThickness / 2}
           width={wallThickness}
           height={roomHeight - wallThickness}
-          fill="gray"
+          fill="#ACACAC"
         />
         <rect
           x={roomWidth - wallThickness / 2}
           y={wallThickness / 2}
           width={wallThickness}
           height={roomHeight - wallThickness}
-          fill="gray"
+          fill="#ACACAC"
         />
         {partitions}
       </g>
@@ -119,44 +119,44 @@ const WallDrawer = () => {
   return (
     <div style={{ textAlign: "center" }}>
       <div className="navbar">
-      <TextField
-        id="outlined-basic"
-        variant="outlined"
-        label="Oda genişliği"
-        type="number"
-        value={roomWidth}
-        onChange={(e) => setRoomWidth(parseInt(e.target.value))}
-      />
-      <TextField
-        type="number"
-        id="outlined-basic"
-        variant="outlined"
-        label="Oda yüksekliği"
-        value={roomHeight}
-        onChange={(e) => setRoomHeight(parseInt(e.target.value))}
-      />
-      <TextField
-        label="Kabin adedi"
-        id="outlined-basic"
-        variant="outlined"
-        type="number"
-        value={numPartitions}
-        onChange={(e) => setNumPartitions(parseInt(e.target.value))}
-      />
+        <TextField
+          id="outlined-basic"
+          variant="outlined"
+          label="Oda genişliği"
+          type="number"
+          value={roomWidth}
+          onChange={(e) => setRoomWidth(parseInt(e.target.value))}
+        />
+        <TextField
+          type="number"
+          id="outlined-basic"
+          variant="outlined"
+          label="Oda yüksekliği"
+          value={roomHeight}
+          onChange={(e) => setRoomHeight(parseInt(e.target.value))}
+        />
+        <TextField
+          label="Kabin adedi"
+          id="outlined-basic"
+          variant="outlined"
+          type="number"
+          value={numPartitions}
+          onChange={(e) => setNumPartitions(parseInt(e.target.value))}
+        />
 
-      <TextField
-        type="number"
-        value={partitionDepth}
-        onChange={(e) => setPartitionDepth(parseInt(e.target.value))}
-        id="outlined-basic"
-        label="Kabin Derinliği"
-        variant="outlined"
-      />
-      <Button onClick={drawWall} variant="contained" color="success">
-        Duvarı Çiz <PolylineOutlinedIcon/>
-      </Button>
+        <TextField
+          type="number"
+          value={stallDepth}
+          onChange={(e) => setStallDepth(parseInt(e.target.value))}
+          id="outlined-basic"
+          label="Kabin Derinliği"
+          variant="outlined"
+        />
+        <Button onClick={drawWall} variant="contained" color="success">
+          Duvarı Çiz <PolylineOutlinedIcon />
+        </Button>
       </div>
-      
+
       <div style={{ display: "inline-block", marginLeft: "20px" }}>{wall}</div>
     </div>
   );
