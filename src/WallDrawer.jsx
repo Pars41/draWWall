@@ -45,7 +45,7 @@ const WallDrawer = () => {
       numStalls;
 
     const closetWidth = partitionWidth/2; 
-
+console.log(partitionWidth)
     const partitions = [];
     for (let i = 1; i < numStalls; i++) {
       const partitionX = 2 * wallThickness + i * partitionWidth + (i - 1) * panel;
@@ -111,7 +111,7 @@ const WallDrawer = () => {
       textAnchor="start"
       fill="black"
     >
-      {roomWidth} cm
+      {roomWidth}
     </text>
     <polyline
       points={`${1.5*wallThickness},15 ${1.5*wallThickness},${0} ${roomWidth-wallThickness/2},${0} ${roomWidth-wallThickness/2},15`}
@@ -121,6 +121,36 @@ const WallDrawer = () => {
     
     
     {/* Show roomHeight */}
+    <text
+      x={-roomHeight/2}
+      y={-8}
+      textAnchor="end"
+      fill="black"
+      transform={`rotate(-90)`}
+    >
+      {roomHeight}
+    </text>
+    <polyline
+      points={`${wallThickness},${wallThickness*1.5} ${0},${wallThickness*1.5} ${0},${roomHeight-wallThickness/2} ${wallThickness},${roomHeight-wallThickness/2}`}
+      fill="none"
+      stroke="black"
+    />
+    {/* Show stallDepth */}
+    <text
+      x={stallDepth/2 +wallThickness}
+      y={-roomWidth-1.5*wallThickness}
+      textAnchor="start"
+      fill="black"
+      transform={`rotate(90)`}
+
+      >
+      {stallDepth}
+    </text>
+    <polyline
+      points={`${roomWidth},${wallThickness*1.5} ${roomWidth+wallThickness},${wallThickness*1.5} ${roomWidth+wallThickness},${stallDepth+wallThickness*1.5} ${roomWidth},${stallDepth+wallThickness*1.5}`}
+      fill="none"
+      stroke="black"
+    />
     
         
       </g>
