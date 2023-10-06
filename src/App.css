@@ -6,7 +6,14 @@
   height: 40vmin;
   pointer-events: none;
 }
-
+ 
+.navbar{
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
