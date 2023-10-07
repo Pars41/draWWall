@@ -52,69 +52,70 @@ const WallDrawer = () => {
         2 * wallThickness + i * partitionWidth + (i - 1) * panel;
       const partitionY = wallThickness * 1.5;
       if (i !== numStalls) {
-      partitions.push(
-        <g key={`partition-${i}`}>
-          <rect
-            x={partitionX - wallThickness / 2}
-            y={partitionY}
-            width={panel}
-            height={stallDepth}
-            fill={panelColor}
-          />
-          {/* Adding Plaster */}
-          <line
-            x1={partitionX - wallThickness}
-            y1={partitionY + stallDepth}
-            x2={partitionX + wallThickness / 2}
-            y2={partitionY + stallDepth}
-            stroke="#77380F"
-            strokeWidth={3}
-          />
-          {/* Adding Doors */}
-
-          <line
-            x1={partitionX - partitionWidth +wallThickness/2}
-            y1={partitionY + stallDepth -wallThickness*1.5}
-            x2={partitionX -wallThickness-3}
-            y2={partitionY + stallDepth}
-            stroke="#9C776F"
-            strokeWidth={3}
-          />
-          
-        </g>
-      )}else{
         partitions.push(
-        <line
-            x1={partitionX - partitionWidth +wallThickness/2}
-            y1={partitionY + stallDepth -wallThickness*1.5}
-            x2={partitionX -wallThickness-3}
+          <g key={`partition-${i}`}>
+            <rect
+              x={partitionX - wallThickness / 2}
+              y={partitionY}
+              width={panel}
+              height={stallDepth}
+              fill={panelColor}
+            />
+            {/* Adding Plaster */}
+            <line
+              x1={partitionX - wallThickness}
+              y1={partitionY + stallDepth}
+              x2={partitionX + wallThickness / 2}
+              y2={partitionY + stallDepth}
+              stroke="#77380F"
+              strokeWidth={3}
+            />
+            {/* Adding Doors */}
+
+            <line
+              x1={partitionX - partitionWidth + wallThickness / 2}
+              y1={partitionY + stallDepth - wallThickness * 1.5}
+              x2={partitionX - wallThickness - 3}
+              y2={partitionY + stallDepth}
+              stroke="#9C776F"
+              strokeWidth={3}
+            />
+          </g>
+        );
+      } else {
+        partitions.push(
+          <line
+            x1={partitionX - partitionWidth + wallThickness / 2}
+            y1={partitionY + stallDepth - wallThickness * 1.5}
+            x2={partitionX - wallThickness - 3}
             y2={partitionY + stallDepth}
             stroke="#9C776F"
             strokeWidth={3}
-          />)
-      };
+          />
+        );
+      }
     }
 
     partitions.push(
       <g key={`first and last plaster`}>
-      <line
-            x1={wallThickness*1.5}
-            y1={stallDepth +wallThickness*1.5}
-            x2={ wallThickness *2.5}
-            y2={stallDepth +wallThickness*1.5}
-            stroke="#77380F"
-            strokeWidth={3}
-          />
-      <line
-            x1={roomWidth -wallThickness}
-            y1={stallDepth +wallThickness*1.5}
-            x2={roomWidth- wallThickness/2}
-            y2={stallDepth +wallThickness*1.5}
-            stroke="#77380F"
-            strokeWidth={3}
-          />
-          </g>
-    )
+        <line
+          x1={wallThickness * 1.5}
+          y1={stallDepth + wallThickness * 1.5}
+          x2={wallThickness * 2.5}
+          y2={stallDepth + wallThickness * 1.5}
+          stroke="#77380F"
+          strokeWidth={3}
+        />
+        <line
+          x1={roomWidth - wallThickness}
+          y1={stallDepth + wallThickness * 1.5}
+          x2={roomWidth - wallThickness / 2}
+          y2={stallDepth + wallThickness * 1.5}
+          stroke="#77380F"
+          strokeWidth={3}
+        />
+      </g>
+    );
 
     const UShapeWithPartitions = (
       <g fill="#ACACAC">
@@ -149,20 +150,50 @@ const WallDrawer = () => {
 
           return (
             <>
-            <image
-              key={`kolzet-${index}`}
-              href={ToiletImg}
-              x={partitionX+partitionWidth/2 - closetWidth/2 - panel/2}
-              y={partitionY}
-              width={closetWidth}
-              height={closetHeight}
-            />
-            <text x={partitionX+partitionWidth/2 - closetWidth/2 + panel/2}
-              y={partitionY+ closetHeight/2 +wallThickness} textAnchor="start" fill="black" fontSize="12px" >
-          {partitionWidth.toFixed(1)}
-        </text>
+              <image
+                key={`kolzet-${index}`}
+                href={ToiletImg}
+                x={
+                  partitionX + partitionWidth / 2 - closetWidth / 2 - panel / 2
+                }
+                y={partitionY}
+                width={closetWidth}
+                height={closetHeight}
+              />
+              <polyline
+                points={`${partitionX + 3},${
+                  partitionY + closetHeight / 2 + wallThickness
+                } ${partitionX - 2},${
+                  partitionY + closetHeight / 2 + wallThickness -3
+                } ${partitionX + partitionWidth / 4},${
+                  partitionY + closetHeight / 2 + wallThickness -3
+                }`}
+                fill="none"
+                stroke="black"
+              />
+              <text
+                x={
+                  partitionX + partitionWidth / 2 - closetWidth / 2 + panel / 2
+                }
+                y={partitionY + closetHeight / 2 + wallThickness}
+                textAnchor="start"
+                fill="black"
+                fontSize="12px"
+              >
+                {partitionWidth.toFixed(1)}
+              </text>
+              <polyline
+                points={`${partitionX  +partitionWidth-8},${
+                  partitionY + closetHeight / 2 + wallThickness
+                } ${partitionX +partitionWidth-panel/2},${
+                  partitionY + closetHeight / 2 + wallThickness -3
+                } ${partitionX + partitionWidth -partitionWidth/4},${
+                  partitionY + closetHeight / 2 + wallThickness -3
+                }`}
+                fill="none"
+                stroke="black"
+              />
             </>
-            
           );
         })}
 
