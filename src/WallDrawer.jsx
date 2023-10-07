@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import PolylineOutlinedIcon from "@mui/icons-material/PolylineOutlined";
-import ToiletImg from "./assets/ToiletWall.gif"; 
+import ToiletImg from "./assets/ToiletWall.gif";
 
 const WallDrawer = () => {
   const [roomWidth, setRoomWidth] = useState("");
@@ -15,19 +15,19 @@ const WallDrawer = () => {
     const wallThickness = 15; // Duvar kalınlığı
     const patternWidth = 20; // Desen genişliği
     const patternHeight = 20; // Desen yüksekliği
-    
-    const patterns = [];
-
     const panel = 5; // Ara panel kalınlığı
-    const panelColor = "#DC773F"; // Ara panel rengi
-    const doorColor = "#9C776F"  // Kapı rengi
-    const plasterColor = "#77380F"
-    const doorOpeningColor = "#CAAAA5"
-    const wallColor = "#ACACAC"
+
+    //Colors
+    const panelColor = "#DC773F";
+    const doorColor = "#9C776F";
+    const plasterColor = "#77380F";
+    const doorOpeningColor = "#CAAAA5";
+    const wallColor = "#ACACAC";
 
     const numHorizontalPatterns = Math.ceil(roomWidth / patternWidth);
     const numVerticalPatterns = Math.ceil(roomDepth / patternHeight);
 
+    const patterns = [];
     for (let i = 0; i < numVerticalPatterns; i++) {
       for (let j = 0; j < numHorizontalPatterns; j++) {
         const x = j * patternWidth;
@@ -100,25 +100,24 @@ const WallDrawer = () => {
       } else {
         partitions.push(
           <>
-          <line
-            x1={partitionX - partitionWidth + wallThickness / 2}
-            y1={partitionY + stallDepth - wallThickness * 1.5}
-            x2={partitionX - wallThickness - 3}
-            y2={partitionY + stallDepth}
-            stroke={doorColor}
-            strokeWidth={3}
-          />
-          <path
-          d={`M ${partitionX - partitionWidth + wallThickness / 2 + 3} ${
-            partitionY + stallDepth - wallThickness * 1.5 - 5
-          } Q ${partitionX - partitionWidth / 2 - 10} ${
-            stallDepth / 1.5 + 10
-          } ${partitionX - 15} ${partitionY + stallDepth / 2 + 15}`}
-          stroke={doorOpeningColor}
-          fill="transparent"
-        />
+            <line
+              x1={partitionX - partitionWidth + wallThickness / 2}
+              y1={partitionY + stallDepth - wallThickness * 1.5}
+              x2={partitionX - wallThickness - 3}
+              y2={partitionY + stallDepth}
+              stroke={doorColor}
+              strokeWidth={3}
+            />
+            <path
+              d={`M ${partitionX - partitionWidth + wallThickness / 2 + 3} ${
+                partitionY + stallDepth - wallThickness * 1.5 - 5
+              } Q ${partitionX - partitionWidth / 2 - 10} ${
+                stallDepth / 1.5 + 10
+              } ${partitionX - 15} ${partitionY + stallDepth / 2 + 15}`}
+              stroke={doorOpeningColor}
+              fill="transparent"
+            />
           </>
-          
         );
       }
     }
@@ -146,26 +145,50 @@ const WallDrawer = () => {
 
     const UShapeWithPartitions = (
       <g fill={wallColor}>
+        <defs>
+          <pattern
+            id="crossHatch"
+            width="10"
+            height="10"
+            patternTransform="rotate(-45 5 5)"
+            patternUnits="userSpaceOnUse"
+          >
+            <line
+              x1="0"
+              y1="0"
+              x2="10"
+              y2="0"
+              stroke={wallColor}
+              strokeWidth="4"
+            />
+          </pattern>
+        </defs>
         <rect
           x={wallThickness / 2}
           y={wallThickness / 2}
           width={roomWidth - wallThickness}
           height={wallThickness}
-          fill={wallColor}
+          fill="url(#crossHatch)"
+          stroke={wallColor}
+          strokeWidth="4"
         />
         <rect
           x={wallThickness / 2}
           y={wallThickness / 2}
           width={wallThickness}
           height={roomDepth - wallThickness}
-          fill={wallColor}
+          fill="url(#crossHatch)"
+          stroke={wallColor}
+          strokeWidth="4"
         />
         <rect
           x={roomWidth - wallThickness / 2}
           y={wallThickness / 2}
           width={wallThickness}
           height={roomDepth - wallThickness}
-          fill={wallColor}
+          fill="url(#crossHatch)"
+          stroke={wallColor}
+          strokeWidth="4"
         />
         {partitions}
 
@@ -354,7 +377,9 @@ const WallDrawer = () => {
         </Button>
       </div>
 
-      <div style={{ display: "inline-block", marginLeft: "20px" }}>{layout}</div>
+      <div style={{ display: "inline-block", marginLeft: "20px" }}>
+        {layout}
+      </div>
     </div>
   );
 };
