@@ -12,7 +12,7 @@ const WallDrawer = () => {
   const [stallDepth, setStallDepth] = useState("");
 
   const drawWall = () => {
-    const wallThickness = 20; // Duvar kalınlığı
+    const wallThickness = 15; // Duvar kalınlığı
     const patternWidth = 20; // Desen genişliği
     const patternHeight = 20; // Desen yüksekliği
 
@@ -41,25 +41,35 @@ const WallDrawer = () => {
     }
 
     const partitionWidth =
-      (roomWidth - wallThickness * 2 - (numStalls - 1) * panel) /
-      numStalls;
+      (roomWidth - wallThickness * 2 - (numStalls - 1) * panel) / numStalls;
 
-    const closetWidth = partitionWidth/2; 
-console.log(partitionWidth)
+    const closetWidth = partitionWidth / 2;
+    console.log(partitionWidth);
     const partitions = [];
     for (let i = 1; i < numStalls; i++) {
-      const partitionX = 2 * wallThickness + i * partitionWidth + (i - 1) * panel;
+      const partitionX =
+        2 * wallThickness + i * partitionWidth + (i - 1) * panel;
       const partitionY = wallThickness * 1.5;
 
       partitions.push(
-        <rect
-          key={`partition-${i}`}
-          x={partitionX - wallThickness / 2}
-          y={partitionY}
-          width={panel}
-          height={stallDepth}
-          fill={panelColor} // Farklı renkler için burada değişiklik yapıldı
-        />
+        <g key={`partition-${i}`}>
+          <rect
+            x={partitionX - wallThickness / 2}
+            y={partitionY}
+            width={panel}
+            height={stallDepth}
+            fill={panelColor}
+          />
+          {/* Adding Plaster */}
+          <line
+            x1={partitionX - wallThickness}
+            y1={partitionY + stallDepth}
+            x2={partitionX + wallThickness / 2}
+            y2={partitionY + stallDepth}
+            stroke="#77380F"
+            strokeWidth={3}
+          />
+        </g>
       );
     }
 
@@ -90,77 +100,81 @@ console.log(partitionWidth)
 
         {/* Adding the kolzet image at partition centers */}
         {Array.from({ length: numStalls }).map((_, index) => {
-      const partitionX = 2 * wallThickness + index * partitionWidth + (index - 1) * panel;
-      const partitionY = wallThickness * 1.5;
+          const partitionX =
+            2 * wallThickness + index * partitionWidth + (index - 1) * panel;
+          const partitionY = wallThickness * 1.5;
 
-      return (
-        <image
-          key={`kolzet-${index}`}
-          href={ToiletImg}
-          x={partitionX + closetWidth / 2 - panel }
-          y={partitionY}
-          width={closetWidth}
+          return (
+            <image
+              key={`kolzet-${index}`}
+              href={ToiletImg}
+              x={partitionX + closetWidth / 2 - panel}
+              y={partitionY}
+              width={closetWidth}
+            />
+          );
+        })}
+
+        {/* Show roomWidth */}
+        <text x={roomWidth / 2} y={-8} textAnchor="start" fill="black">
+          {roomWidth}
+        </text>
+        <polyline
+          points={`${1.5 * wallThickness},15 ${1.5 * wallThickness},${0} ${
+            roomWidth - wallThickness / 2
+          },${0} ${roomWidth - wallThickness / 2},15`}
+          fill="none"
+          stroke="black"
         />
-      );
-    })}
 
-      {/* Show roomWidth */}
-    <text
-      x={roomWidth / 2}
-      y={-8}
-      textAnchor="start"
-      fill="black"
-    >
-      {roomWidth}
-    </text>
-    <polyline
-      points={`${1.5*wallThickness},15 ${1.5*wallThickness},${0} ${roomWidth-wallThickness/2},${0} ${roomWidth-wallThickness/2},15`}
-      fill="none"
-      stroke="black"
-    />
-    
-    
-    {/* Show roomHeight */}
-    <text
-      x={-roomHeight/2}
-      y={-8}
-      textAnchor="end"
-      fill="black"
-      transform={`rotate(-90)`}
-    >
-      {roomHeight}
-    </text>
-    <polyline
-      points={`${wallThickness},${wallThickness*1.5} ${0},${wallThickness*1.5} ${0},${roomHeight-wallThickness/2} ${wallThickness},${roomHeight-wallThickness/2}`}
-      fill="none"
-      stroke="black"
-    />
-    {/* Show stallDepth */}
-    <text
-      x={stallDepth/2 +wallThickness}
-      y={-roomWidth-1.5*wallThickness}
-      textAnchor="start"
-      fill="black"
-      transform={`rotate(90)`}
-
-      >
-      {stallDepth}
-    </text>
-    <polyline
-      points={`${roomWidth},${wallThickness*1.5} ${roomWidth+wallThickness},${wallThickness*1.5} ${roomWidth+wallThickness},${stallDepth+wallThickness*1.5} ${roomWidth},${stallDepth+wallThickness*1.5}`}
-      fill="none"
-      stroke="black"
-    />
-    
-        
+        {/* Show roomHeight */}
+        <text
+          x={-roomHeight / 2}
+          y={-8}
+          textAnchor="end"
+          fill="black"
+          transform={`rotate(-90)`}
+        >
+          {roomHeight}
+        </text>
+        <polyline
+          points={`${wallThickness},${wallThickness * 1.5} ${0},${
+            wallThickness * 1.5
+          } ${0},${roomHeight - wallThickness / 2} ${wallThickness},${
+            roomHeight - wallThickness / 2
+          }`}
+          fill="none"
+          stroke="black"
+        />
+        {/* Show stallDepth */}
+        <text
+          x={stallDepth / 2 + wallThickness}
+          y={-roomWidth - 1.5 * wallThickness}
+          textAnchor="start"
+          fill="black"
+          transform={`rotate(90)`}
+        >
+          {stallDepth}
+        </text>
+        <polyline
+          points={`${roomWidth},${wallThickness * 1.5} ${
+            roomWidth + wallThickness
+          },${wallThickness * 1.5} ${roomWidth + wallThickness},${
+            stallDepth + wallThickness * 1.5
+          } ${roomWidth},${stallDepth + wallThickness * 1.5}`}
+          fill="none"
+          stroke="black"
+        />
       </g>
     );
     const extendAmount = 30;
     const updatedWall = (
       <svg
-         width={roomWidth + wallThickness + 2 * extendAmount}  // Sağ ve sol tarafa extendAmount ekleniyor
-    height={roomHeight + wallThickness + 2 * extendAmount}  // Üst ve alt tarafa extendAmount ekleniyor
-    viewBox={`-${extendAmount} -${extendAmount} ${roomWidth + wallThickness + 2 * extendAmount} ${roomHeight + wallThickness + 2 * extendAmount}`}
+        width={roomWidth + wallThickness + 2 * extendAmount} // Sağ ve sol tarafa extendAmount ekleniyor
+        height={roomHeight + wallThickness + 2 * extendAmount} // Üst ve alt tarafa extendAmount ekleniyor
+        viewBox={`-${extendAmount} -${extendAmount} ${
+          roomWidth + wallThickness + 2 * extendAmount
+        } ${roomHeight + wallThickness + 2 * extendAmount}`}
       >
         <defs>
           <pattern
@@ -189,7 +203,7 @@ console.log(partitionWidth)
 
     setWall(updatedWall);
   };
-  console.log(numStalls)
+  console.log(numStalls);
   return (
     <div style={{ textAlign: "center" }}>
       <div className="navbar">
