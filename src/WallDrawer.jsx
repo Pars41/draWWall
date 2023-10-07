@@ -80,10 +80,21 @@ const WallDrawer = () => {
               stroke="#9C776F"
               strokeWidth={3}
             />
+            {/* Adding Doors Opening */}
+            <path
+              d={`M ${partitionX - partitionWidth + wallThickness / 2 + 3} ${
+                partitionY + stallDepth - wallThickness * 1.5 - 5
+              } Q ${partitionX - partitionWidth / 2 - 10} ${
+                stallDepth / 1.5 + 10
+              } ${partitionX - 15} ${partitionY + stallDepth / 2 + 15}`}
+              stroke="#CAAAA5"
+              fill="transparent"
+            />
           </g>
         );
       } else {
         partitions.push(
+          <>
           <line
             x1={partitionX - partitionWidth + wallThickness / 2}
             y1={partitionY + stallDepth - wallThickness * 1.5}
@@ -92,6 +103,17 @@ const WallDrawer = () => {
             stroke="#9C776F"
             strokeWidth={3}
           />
+          <path
+          d={`M ${partitionX - partitionWidth + wallThickness / 2 + 3} ${
+            partitionY + stallDepth - wallThickness * 1.5 - 5
+          } Q ${partitionX - partitionWidth / 2 - 10} ${
+            stallDepth / 1.5 + 10
+          } ${partitionX - 15} ${partitionY + stallDepth / 2 + 15}`}
+          stroke="#CAAAA5"
+          fill="transparent"
+        />
+          </>
+          
         );
       }
     }
@@ -164,9 +186,9 @@ const WallDrawer = () => {
                 points={`${partitionX + 3},${
                   partitionY + closetHeight / 2 + wallThickness
                 } ${partitionX - 2},${
-                  partitionY + closetHeight / 2 + wallThickness -3
+                  partitionY + closetHeight / 2 + wallThickness - 3
                 } ${partitionX + partitionWidth / 4},${
-                  partitionY + closetHeight / 2 + wallThickness -3
+                  partitionY + closetHeight / 2 + wallThickness - 3
                 }`}
                 fill="none"
                 stroke="black"
@@ -183,12 +205,12 @@ const WallDrawer = () => {
                 {partitionWidth.toFixed(1)}
               </text>
               <polyline
-                points={`${partitionX  +partitionWidth-8},${
+                points={`${partitionX + partitionWidth - 8},${
                   partitionY + closetHeight / 2 + wallThickness
-                } ${partitionX +partitionWidth-panel/2},${
-                  partitionY + closetHeight / 2 + wallThickness -3
-                } ${partitionX + partitionWidth -partitionWidth/4},${
-                  partitionY + closetHeight / 2 + wallThickness -3
+                } ${partitionX + partitionWidth - panel / 2},${
+                  partitionY + closetHeight / 2 + wallThickness - 3
+                } ${partitionX + partitionWidth - partitionWidth / 4},${
+                  partitionY + closetHeight / 2 + wallThickness - 3
                 }`}
                 fill="none"
                 stroke="black"
