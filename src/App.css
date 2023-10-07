@@ -9,11 +9,17 @@
  
 .navbar{
   margin: 2rem;
+  margin-bottom: 4rem;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 2rem;
 }
+
+.layout{
+  display: "inline-block"
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

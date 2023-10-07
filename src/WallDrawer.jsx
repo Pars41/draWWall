@@ -69,9 +69,9 @@ const WallDrawer = () => {
             {/* Adding Plaster */}
             <line
               x1={partitionX - wallThickness}
-              y1={partitionY + stallDepth}
+              y1={partitionY + stallDepth+3}
               x2={partitionX + wallThickness / 2}
-              y2={partitionY + stallDepth}
+              y2={partitionY + stallDepth+3}
               stroke={plasterColor}
               strokeWidth={3}
             />
@@ -81,7 +81,7 @@ const WallDrawer = () => {
               x1={partitionX - partitionWidth + wallThickness / 2}
               y1={partitionY + stallDepth - wallThickness * 1.5}
               x2={partitionX - wallThickness - 3}
-              y2={partitionY + stallDepth}
+              y2={partitionY + stallDepth +3}
               stroke={doorColor}
               strokeWidth={3}
             />
@@ -104,7 +104,7 @@ const WallDrawer = () => {
               x1={partitionX - partitionWidth + wallThickness / 2}
               y1={partitionY + stallDepth - wallThickness * 1.5}
               x2={partitionX - wallThickness - 3}
-              y2={partitionY + stallDepth}
+              y2={partitionY + stallDepth +3}
               stroke={doorColor}
               strokeWidth={3}
             />
@@ -126,17 +126,17 @@ const WallDrawer = () => {
       <g key={`first and last plaster`}>
         <line
           x1={wallThickness * 1.5}
-          y1={stallDepth + wallThickness * 1.5}
+          y1={stallDepth + wallThickness * 1.5+3}
           x2={wallThickness * 2.5}
-          y2={stallDepth + wallThickness * 1.5}
+          y2={stallDepth + wallThickness * 1.5+3}
           stroke={plasterColor}
           strokeWidth={3}
         />
         <line
           x1={roomWidth - wallThickness}
-          y1={stallDepth + wallThickness * 1.5}
+          y1={stallDepth + wallThickness * 1.5+3}
           x2={roomWidth - wallThickness / 2}
-          y2={stallDepth + wallThickness * 1.5}
+          y2={stallDepth + wallThickness * 1.5+3}
           stroke={plasterColor}
           strokeWidth={3}
         />
@@ -377,7 +377,7 @@ const WallDrawer = () => {
         </Button>
       </div>
 
-      <div style={{ display: "inline-block", marginLeft: "20px" }}>
+      <div className="layout" >
         {layout}
       </div>
     </div>
