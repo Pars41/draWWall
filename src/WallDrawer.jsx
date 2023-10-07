@@ -43,14 +43,15 @@ const WallDrawer = () => {
     const partitionWidth =
       (roomWidth - wallThickness * 2 - (numStalls - 1) * panel) / numStalls;
 
-    const closetWidth = partitionWidth / 2;
+    const closetWidth = 36;
+    const closetHeight = 68;
     console.log(partitionWidth);
     const partitions = [];
-    for (let i = 1; i < numStalls; i++) {
+    for (let i = 1; i <= numStalls; i++) {
       const partitionX =
         2 * wallThickness + i * partitionWidth + (i - 1) * panel;
       const partitionY = wallThickness * 1.5;
-
+      if (i !== numStalls) {
       partitions.push(
         <g key={`partition-${i}`}>
           <rect
@@ -81,7 +82,17 @@ const WallDrawer = () => {
           />
           
         </g>
-      );
+      )}else{
+        partitions.push(
+        <line
+            x1={partitionX - partitionWidth +wallThickness/2}
+            y1={partitionY + stallDepth -wallThickness*1.5}
+            x2={partitionX -wallThickness-3}
+            y2={partitionY + stallDepth}
+            stroke="#9C776F"
+            strokeWidth={3}
+          />)
+      };
     }
 
     partitions.push(
@@ -95,7 +106,7 @@ const WallDrawer = () => {
             strokeWidth={3}
           />
       <line
-            x1={roomWidth -wallThickness*1.5}
+            x1={roomWidth -wallThickness}
             y1={stallDepth +wallThickness*1.5}
             x2={roomWidth- wallThickness/2}
             y2={stallDepth +wallThickness*1.5}
@@ -137,13 +148,21 @@ const WallDrawer = () => {
           const partitionY = wallThickness * 1.5;
 
           return (
+            <>
             <image
               key={`kolzet-${index}`}
               href={ToiletImg}
-              x={partitionX + closetWidth / 2 - panel}
+              x={partitionX+partitionWidth/2 - closetWidth/2 - panel/2}
               y={partitionY}
               width={closetWidth}
+              height={closetHeight}
             />
+            <text x={partitionX+partitionWidth/2 - closetWidth/2 + panel/2}
+              y={partitionY+ closetHeight/2 +wallThickness} textAnchor="start" fill="black" fontSize="12px" >
+          {partitionWidth.toFixed(1)}
+        </text>
+            </>
+            
           );
         })}
 
