@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import PolylineOutlinedIcon from "@mui/icons-material/PolylineOutlined";
-import ToiletImg from "./assets/ToiletWall.gif"; // Import kolzet image
+import ToiletImg from "./assets/ToiletWall.gif"; 
 
 const WallDrawer = () => {
   const [roomWidth, setRoomWidth] = useState("");
-  const [roomHeight, setRoomHeight] = useState("");
-  const [wall, setWall] = useState("");
+  const [roomDepth, setRoomDepth] = useState("");
+  const [layout, setLayout] = useState("");
   const [numStalls, setNumStalls] = useState("");
   const [stallDepth, setStallDepth] = useState("");
 
@@ -15,14 +15,19 @@ const WallDrawer = () => {
     const wallThickness = 15; // Duvar kalınlığı
     const patternWidth = 20; // Desen genişliği
     const patternHeight = 20; // Desen yüksekliği
+    
+    const patterns = [];
 
-    const panel = 5; // Ara duvar kalınlığı
-    const panelColor = "#DC773F"; // Ara duvar rengi
+    const panel = 5; // Ara panel kalınlığı
+    const panelColor = "#DC773F"; // Ara panel rengi
+    const doorColor = "#9C776F"  // Kapı rengi
+    const plasterColor = "#77380F"
+    const doorOpeningColor = "#CAAAA5"
+    const wallColor = "#ACACAC"
 
     const numHorizontalPatterns = Math.ceil(roomWidth / patternWidth);
-    const numVerticalPatterns = Math.ceil(roomHeight / patternHeight);
+    const numVerticalPatterns = Math.ceil(roomDepth / patternHeight);
 
-    const patterns = [];
     for (let i = 0; i < numVerticalPatterns; i++) {
       for (let j = 0; j < numHorizontalPatterns; j++) {
         const x = j * patternWidth;
@@ -67,7 +72,7 @@ const WallDrawer = () => {
               y1={partitionY + stallDepth}
               x2={partitionX + wallThickness / 2}
               y2={partitionY + stallDepth}
-              stroke="#77380F"
+              stroke={plasterColor}
               strokeWidth={3}
             />
             {/* Adding Doors */}
@@ -77,7 +82,7 @@ const WallDrawer = () => {
               y1={partitionY + stallDepth - wallThickness * 1.5}
               x2={partitionX - wallThickness - 3}
               y2={partitionY + stallDepth}
-              stroke="#9C776F"
+              stroke={doorColor}
               strokeWidth={3}
             />
             {/* Adding Doors Opening */}
@@ -87,7 +92,7 @@ const WallDrawer = () => {
               } Q ${partitionX - partitionWidth / 2 - 10} ${
                 stallDepth / 1.5 + 10
               } ${partitionX - 15} ${partitionY + stallDepth / 2 + 15}`}
-              stroke="#CAAAA5"
+              stroke={doorOpeningColor}
               fill="transparent"
             />
           </g>
@@ -100,7 +105,7 @@ const WallDrawer = () => {
             y1={partitionY + stallDepth - wallThickness * 1.5}
             x2={partitionX - wallThickness - 3}
             y2={partitionY + stallDepth}
-            stroke="#9C776F"
+            stroke={doorColor}
             strokeWidth={3}
           />
           <path
@@ -109,7 +114,7 @@ const WallDrawer = () => {
           } Q ${partitionX - partitionWidth / 2 - 10} ${
             stallDepth / 1.5 + 10
           } ${partitionX - 15} ${partitionY + stallDepth / 2 + 15}`}
-          stroke="#CAAAA5"
+          stroke={doorOpeningColor}
           fill="transparent"
         />
           </>
@@ -125,7 +130,7 @@ const WallDrawer = () => {
           y1={stallDepth + wallThickness * 1.5}
           x2={wallThickness * 2.5}
           y2={stallDepth + wallThickness * 1.5}
-          stroke="#77380F"
+          stroke={plasterColor}
           strokeWidth={3}
         />
         <line
@@ -133,34 +138,34 @@ const WallDrawer = () => {
           y1={stallDepth + wallThickness * 1.5}
           x2={roomWidth - wallThickness / 2}
           y2={stallDepth + wallThickness * 1.5}
-          stroke="#77380F"
+          stroke={plasterColor}
           strokeWidth={3}
         />
       </g>
     );
 
     const UShapeWithPartitions = (
-      <g fill="#ACACAC">
+      <g fill={wallColor}>
         <rect
           x={wallThickness / 2}
           y={wallThickness / 2}
           width={roomWidth - wallThickness}
           height={wallThickness}
-          fill="#ACACAC"
+          fill={wallColor}
         />
         <rect
           x={wallThickness / 2}
           y={wallThickness / 2}
           width={wallThickness}
-          height={roomHeight - wallThickness}
-          fill="#ACACAC"
+          height={roomDepth - wallThickness}
+          fill={wallColor}
         />
         <rect
           x={roomWidth - wallThickness / 2}
           y={wallThickness / 2}
           width={wallThickness}
-          height={roomHeight - wallThickness}
-          fill="#ACACAC"
+          height={roomDepth - wallThickness}
+          fill={wallColor}
         />
         {partitions}
 
@@ -231,21 +236,21 @@ const WallDrawer = () => {
           stroke="black"
         />
 
-        {/* Show roomHeight */}
+        {/* Show roomDepth */}
         <text
-          x={-roomHeight / 2}
+          x={-roomDepth / 2}
           y={-8}
           textAnchor="end"
           fill="black"
           transform={`rotate(-90)`}
         >
-          {roomHeight}
+          {roomDepth}
         </text>
         <polyline
           points={`${wallThickness},${wallThickness * 1.5} ${0},${
             wallThickness * 1.5
-          } ${0},${roomHeight - wallThickness / 2} ${wallThickness},${
-            roomHeight - wallThickness / 2
+          } ${0},${roomDepth - wallThickness / 2} ${wallThickness},${
+            roomDepth - wallThickness / 2
           }`}
           fill="none"
           stroke="black"
@@ -275,10 +280,10 @@ const WallDrawer = () => {
     const updatedWall = (
       <svg
         width={roomWidth + wallThickness + 2 * extendAmount} // Sağ ve sol tarafa extendAmount ekleniyor
-        height={roomHeight + wallThickness + 2 * extendAmount} // Üst ve alt tarafa extendAmount ekleniyor
+        height={roomDepth + wallThickness + 2 * extendAmount} // Üst ve alt tarafa extendAmount ekleniyor
         viewBox={`-${extendAmount} -${extendAmount} ${
           roomWidth + wallThickness + 2 * extendAmount
-        } ${roomHeight + wallThickness + 2 * extendAmount}`}
+        } ${roomDepth + wallThickness + 2 * extendAmount}`}
       >
         <defs>
           <pattern
@@ -295,7 +300,7 @@ const WallDrawer = () => {
           x={wallThickness / 2}
           y={wallThickness / 2}
           width={roomWidth - wallThickness}
-          height={roomHeight - wallThickness}
+          height={roomDepth - wallThickness}
           fill="white"
         />
 
@@ -305,7 +310,7 @@ const WallDrawer = () => {
       </svg>
     );
 
-    setWall(updatedWall);
+    setLayout(updatedWall);
   };
   console.log(numStalls);
   return (
@@ -324,8 +329,8 @@ const WallDrawer = () => {
           id="outlined-basic"
           variant="outlined"
           label="Room depth (cm)"
-          value={roomHeight}
-          onChange={(e) => setRoomHeight(parseInt(e.target.value))}
+          value={roomDepth}
+          onChange={(e) => setRoomDepth(parseInt(e.target.value))}
         />
         <TextField
           label="Number of stalls"
@@ -349,7 +354,7 @@ const WallDrawer = () => {
         </Button>
       </div>
 
-      <div style={{ display: "inline-block", marginLeft: "20px" }}>{wall}</div>
+      <div style={{ display: "inline-block", marginLeft: "20px" }}>{layout}</div>
     </div>
   );
 };
