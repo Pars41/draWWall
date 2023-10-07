@@ -69,9 +69,41 @@ const WallDrawer = () => {
             stroke="#77380F"
             strokeWidth={3}
           />
+          {/* Adding Doors */}
+
+          <line
+            x1={partitionX - partitionWidth +wallThickness/2}
+            y1={partitionY + stallDepth -wallThickness*1.5}
+            x2={partitionX -wallThickness-3}
+            y2={partitionY + stallDepth}
+            stroke="#9C776F"
+            strokeWidth={3}
+          />
+          
         </g>
       );
     }
+
+    partitions.push(
+      <g key={`first and last plaster`}>
+      <line
+            x1={wallThickness*1.5}
+            y1={stallDepth +wallThickness*1.5}
+            x2={ wallThickness *2.5}
+            y2={stallDepth +wallThickness*1.5}
+            stroke="#77380F"
+            strokeWidth={3}
+          />
+      <line
+            x1={roomWidth -wallThickness*1.5}
+            y1={stallDepth +wallThickness*1.5}
+            x2={roomWidth- wallThickness/2}
+            y2={stallDepth +wallThickness*1.5}
+            stroke="#77380F"
+            strokeWidth={3}
+          />
+          </g>
+    )
 
     const UShapeWithPartitions = (
       <g fill="#ACACAC">
