@@ -192,7 +192,7 @@ const WallDrawer = () => {
         />
         {partitions}
 
-        {/* Adding the kolzet image at partition centers */}
+        {/* Adding the closet image at partition centers */}
         {Array.from({ length: numStalls }).map((_, index) => {
           const partitionX =
             2 * wallThickness + index * partitionWidth + (index - 1) * panel;
@@ -212,10 +212,16 @@ const WallDrawer = () => {
               />
               <polyline
                 points={`${partitionX + 3},${
-                  partitionY + closetHeight / 2 + wallThickness
+                  partitionY + closetHeight / 2 + 15
                 } ${partitionX - 2},${
                   partitionY + closetHeight / 2 + wallThickness - 3
-                } ${partitionX + partitionWidth / 4},${
+                }
+                ${partitionX + 3},${
+                  partitionY + closetHeight / 2 + 9
+                } ${partitionX - 2},${
+                  partitionY + closetHeight / 2 + wallThickness - 3
+                }
+                ${partitionX + partitionWidth / 4},${
                   partitionY + closetHeight / 2 + wallThickness - 3
                 }`}
                 fill="none"
@@ -235,6 +241,10 @@ const WallDrawer = () => {
               <polyline
                 points={`${partitionX + partitionWidth - 8},${
                   partitionY + closetHeight / 2 + wallThickness
+                } ${partitionX + partitionWidth - panel / 2},${
+                  partitionY + closetHeight / 2 + wallThickness - 3
+                } ${partitionX + partitionWidth - 8},${
+                  partitionY + closetHeight / 2 + 9
                 } ${partitionX + partitionWidth - panel / 2},${
                   partitionY + closetHeight / 2 + wallThickness - 3
                 } ${partitionX + partitionWidth - partitionWidth / 4},${
