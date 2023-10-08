@@ -252,9 +252,11 @@ const WallDrawer = () => {
           {roomWidth}
         </text>
         <polyline
-          points={`${1.5 * wallThickness},15 ${1.5 * wallThickness},${0} ${
+          points={`${1.5 * wallThickness},2 ${1.5 * wallThickness},${-16} ${1.5 * wallThickness},${-6} ${
             roomWidth - wallThickness / 2
-          },${0} ${roomWidth - wallThickness / 2},15`}
+          },${-6} ${
+            roomWidth - wallThickness / 2
+          },${-16} ${roomWidth - wallThickness / 2},2`}
           fill="none"
           stroke="black"
         />
@@ -270,9 +272,11 @@ const WallDrawer = () => {
           {roomDepth}
         </text>
         <polyline
-          points={`${wallThickness},${wallThickness * 1.5} ${0},${
+          points={`${2},${wallThickness * 1.5} ${-15},${
             wallThickness * 1.5
-          } ${0},${roomDepth - wallThickness / 2} ${wallThickness},${
+          }${-5},${
+            wallThickness * 1.5
+          } ${-5},${roomDepth - wallThickness / 2} ${-15},${roomDepth - wallThickness / 2} ${2},${
             roomDepth - wallThickness / 2
           }`}
           fill="none"
@@ -289,11 +293,15 @@ const WallDrawer = () => {
           {stallDepth}
         </text>
         <polyline
-          points={`${roomWidth},${wallThickness * 1.5} ${
-            roomWidth + wallThickness
-          },${wallThickness * 1.5} ${roomWidth + wallThickness},${
-            stallDepth + wallThickness * 1.5
-          } ${roomWidth},${stallDepth + wallThickness * 1.5}`}
+          points={`${roomWidth +13},${wallThickness * 1.5} ${
+            roomWidth + wallThickness +15
+          },${wallThickness * 1.5} ${
+            roomWidth + wallThickness +5
+          },${wallThickness * 1.5} ${roomWidth + wallThickness +5},${
+            stallDepth + wallThickness * 1.5 +3
+          } ${roomWidth + wallThickness + 15},${
+            stallDepth + wallThickness * 1.5 +3
+          } ${roomWidth +13},${stallDepth + wallThickness * 1.5 +3}`}
           fill="none"
           stroke="black"
         />
